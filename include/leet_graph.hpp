@@ -8,29 +8,31 @@
 #include <vector>
 #include <print>
 
+template<typename T>
 class Node {
  public:
   int val;
-  std::vector<Node*> neighbors;
+  std::vector<Node<T>*> neighbors;
   Node() {
     val = 0;
     neighbors = {};
   }
 
-  explicit Node(int val) {
+  explicit Node<T>(int val) {
     this->val = val;
     neighbors = {};
   }
 
-  Node(int val, std::vector<Node*> neighbors) {
+  Node<T>(int val, std::vector<Node<T>*> neighbors) {
     this->val = val;
     this->neighbors = neighbors;
   }
 };
 
-static std::vector<Node*> helper(Node* root, std::vector<Node*> buffer) {
+template<typename T>
+static std::vector<Node<T>*> helper(Node<T>* root, std::vector<Node<T>*> buffer) {
   if (root == nullptr) return buffer;
-  for (Node* peer : root->neighbors) {
+  for (Node<T>* peer : root->neighbors) {
     helper(peer, buffer);
   }
   buffer.push_back(root);
@@ -41,7 +43,8 @@ static std::vector<Node*> helper(Node* root, std::vector<Node*> buffer) {
 // TODO could i do some sicp style stuff here?
 // return some lambda that does this iteratively? std::iterator?
 // How to keep track of state between iterations?
-static std::vector<Node*> dfs_traversal(Node* root) {
-  std::vector<Node*> buffer;
+template<typename T>
+static std::vector<Node<T>*> dfs_traversal(Node<T>* root) {
+  std::vector<Node<T>*> buffer;
   return helper(root, buffer);
 }

@@ -22,16 +22,17 @@ struct NodeDesciption {
 
 class GraphUtilTest : public testing::Test {
  protected:
-  std::vector<std::unique_ptr<Node>> nodes;
-  std::unordered_map<int, Node*> nodeMap;
+  std::vector<std::unique_ptr<Node<int>>> nodes;
+  std::unordered_map<int, Node<int>*> nodeMap;
 
   void SetUp() override {}
   void TearDown() override {}
 
   // The graph is represented as a map: {node_id, NodeDesciption}
-  Node* buildGraph(std::unordered_map<int, NodeDesciption> adjacency) {
+  Node<int>* buildGraph(std::unordered_map<int, NodeDesciption> adjacency) {
     for (auto& [node_id, _] : adjacency) {
-      std::unique_ptr<Node> new_node = std::make_unique<Node>(node_id);
+      std::unique_ptr<Node<int>> new_node =
+          std::make_unique<Node<int>>(node_id);
       nodeMap[node_id] = new_node.get();
       nodes.push_back(std::move(new_node));
     }
@@ -46,7 +47,7 @@ class GraphUtilTest : public testing::Test {
 };
 
 TEST_F(GraphUtilTest, TestDFSTraversal) {
-  Node* root = buildGraph({
+  Node<int>* root = buildGraph({
       {{0}, {.val = 0, .neigborIds = {1, 2}}},
       {{1}, {.val = 1, .neigborIds = {3, 4}}},
       {{2}, {.val = 2, .neigborIds = {3}}},
