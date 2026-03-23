@@ -6,6 +6,7 @@
 
 #pragma once
 #include <vector>
+#include <print>
 
 class Node {
  public:
@@ -33,10 +34,13 @@ static std::vector<Node*> helper(Node* root, std::vector<Node*> buffer) {
     helper(peer, buffer);
   }
   buffer.push_back(root);
+  printf("%d, ", root->val);
   return buffer;
 }
 
 // TODO could i do some sicp style stuff here?
+// return some lambda that does this iteratively? std::iterator?
+// How to keep track of state between iterations?
 static std::vector<Node*> dfs_traversal(Node* root) {
   std::vector<Node*> buffer;
   return helper(root, buffer);
