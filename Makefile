@@ -42,7 +42,7 @@ obj/test_%.o: tests/%.cpp
 $(TEST_TARGET): $(TEST_OBJS) $(GTEST_LIB) $(GTEST_MAIN_LIB)
 		$(CXX) $(CXX_FLAGS) $(TEST_OBJS) $(GTEST_LIB) $(GTEST_MAIN_LIB) -lpthread -o $@
 
-test: $(TEST_TARGET)
+test: $(TEST_TARGET) $(TARGET)
 		./$(TEST_TARGET)
 
 tags:
