@@ -30,14 +30,13 @@ class Node {
 };
 
 template<typename T>
-static std::vector<Node<T>*> helper(Node<T>* root, std::vector<Node<T>*> buffer) {
-  if (root == nullptr) return buffer;
+static Node<T>* helper(Node<T>* root, std::vector<Node<T>*>& buffer) {
+  if (root == nullptr) return root;
   for (Node<T>* peer : root->neighbors) {
     helper(peer, buffer);
   }
   buffer.push_back(root);
-  printf("%d, ", root->val);
-  return buffer;
+  return root;
 }
 
 // TODO could i do some sicp style stuff here?
@@ -46,5 +45,6 @@ static std::vector<Node<T>*> helper(Node<T>* root, std::vector<Node<T>*> buffer)
 template<typename T>
 static std::vector<Node<T>*> dfs_traversal(Node<T>* root) {
   std::vector<Node<T>*> buffer;
-  return helper(root, buffer);
+  helper(root, buffer);
+  return buffer;
 }
