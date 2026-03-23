@@ -1,7 +1,7 @@
 CXX = g++
-CXX_FLAGS = -std=c++23 -MMD -Iinclude -Wall
+CXX_FLAGS = -std=c++20 -MMD -Iinclude -Wall -g -O0
 TARGET = leet
-SRCS = src/main.cpp src/leet_graph.cpp
+SRCS = src/main.cpp
 OBJS = $(patsubst src/%.cpp,obj/%.o,$(SRCS))
 DEPS = $(patsubst src/%.cpp,obj/%.d,$(SRCS))
 
@@ -47,6 +47,9 @@ test: $(TEST_TARGET)
 
 tags:
 		ctags -R .
+
+compile_commands.json:
+		bear -- $(MAKE) clean all test
 
 clean:
 		rm ./obj/*
